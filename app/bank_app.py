@@ -42,5 +42,11 @@ def transfer():
     </html>
     """
 
+@app.after_request
+def add_security_headers(response):
+    response.headers["X-Frame-Options"] = "DENY"
+    response.headers["Content-Security-Policy"] = "frame-ancestors 'none';"
+    return response
+
 if __name__ == "__main__":
     app.run(port=5000, debug=True)
